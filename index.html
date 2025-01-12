@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Saya - Versi Animasi</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      /* Resetting defaults */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        scroll-behavior: smooth; /* Smooth scrolling */
+      }
+
+      body {
+        overflow-x: hidden; /* Mencegah scroll mendatar */
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Header and Hero Section */
+      header {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero {
+        background-image: url("background-hero.jpg"); /* Replace with your image */
+        background-size: cover;
+        background-position: center;
+        color: white;
+        text-align: center;
+        padding: 150px 0;
+        position: relative;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 3.5em;
+        margin-bottom: 10px;
+      }
+
+      .hero p {
+        font-size: 1.4em;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+      /* Navigation */
+      .sticky-nav {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .sticky-nav .container {
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .nav-links a {
+        color: #333;
+        text-decoration: none;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        background-color: #007bff;
+        color: white;
+      }
+
+      /* Sections */
+      .section {
+        padding: 80px 0;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+
+      .section.reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-title {
+        font-size: 2.5em;
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+        padding-bottom: 20px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        height: 3px;
+        width: 100px;
+        background-color: #007bff;
+      }
+
+      /* Profile */
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .profile-image {
+        flex: 0 0 200px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .profile-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .profile > div {
+        flex: 1;
+      }
+
+      /* Kemahiran */
+      .kemahiran ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+      }
+
+      .kemahiran li {
+        background-color: #e9ecef;
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: 1px solid #ced4da;
+      }
+
+      /* Portfolio */
+      .portfolio-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .portfolio-item {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .portfolio-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .portfolio-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .portfolio-item-details {
+        padding: 20px;
+        background-color: white;
+      }
+
+      .portfolio-item-details h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .portfolio-item-details p {
+        color: #666;
+      }
+
+      .portfolio-item-details a {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .portfolio-item-details a:hover {
+        background-color: #0056b3;
+      }
+
+      /* Hubungi Saya */
+      .contact-info {
+        text-align: center;
+      }
+
+      .contact-info p {
+        margin-bottom: 20px;
+      }
+
+      .contact-details {
+        display: inline-block;
+        text-align: left;
+      }
+
+      .contact-details p {
+        margin-bottom: 10px;
+      }
+
+      .contact-details i {
+        margin-right: 10px;
+        color: #007bff;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 80px;
+      }
+
+      /* Animasi Tambahan */
+      .animate__animated {
+        --animate-duration: 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="hero">
+        <div class="hero-content">
+          <h1 class="animate__animated animate__fadeInDown">Nama Anda</h1>
+          <p class="animate__animated animate__fadeInUp animate__delay-1s">
+            Seorang [Pekerjaan Anda] yang Bersemangat dan Kreatif
+          </p>
+          <a
+            href="#portfolio"
+            class="btn animate__animated animate__fadeInUp animate__delay-2s"
+            >Lihat Portfolio Saya</a
+          >
+        </div>
+      </div>
+      <nav class="sticky-nav">
+        <div class="container">
+          <div class="nav-links">
+            <a href="#tentang-saya">Tentang Saya</a>
+            <a href="#kemahiran">Kemahiran</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#hubungi-saya">Hubungi Saya</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <section id="tentang-saya" class="section reveal">
+        <h2 class="section-title animate__animated animate__slideInLeft">
+          Tentang Saya
+        </h2>
+        <div class="profile animate__animated animate__fadeInUp">
+          <div class="profile-image">
+            <img src="placeholder-profile.jpg" alt="Gambar Profil Anda" />
+          </div>
+          <div>
+            <h3>Siapa Saya?</h3>
+            <p>
+              Saya adalah seorang individu yang berdedikasi dalam bidang [Bidang
+              Anda]. Dengan pengalaman selama [Jumlah Tahun] tahun, saya telah
+              mengembangkan kepakaran dalam [Sebutkan Kepakaran Utama]. Saya
+              sentiasa mencari peluang untuk belajar dan berkembang dalam
+              persekitaran yang dinamik.
+            </p>
+            <p>
+              Fokus utama saya adalah untuk menghasilkan [Matlamat Utama Anda]
+              melalui pendekatan yang kreatif dan inovatif. Saya percaya pada
+              kepentingan kerjasama dan komunikasi yang efektif untuk mencapai
+              kejayaan bersama.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="kemahiran" class="section reveal">
+        <h2 class="section-title animate__animated animate__slideInRight">
+          Kemahiran
+        </h2>
+        <div class="kemahiran animate__animated animate__fadeInUp">
+          <ul>
+            <li>Bahasa Melayu</li>
+            <li>Pengaturcaraan (Python)</li>
+            <li>Reka Bentuk Grafik (Adobe Photoshop, Illustrator)</li>
+            <li>Pemasaran Digital (SEO, Media Sosial)</li>
+            <li>Pengurusan Projek</li>
+            <li>Analisis Data</li>
+            <li>Komunikasi Efektif</li>
+            <li>Kerja Berpasukan</li>
+            <li>Penyelesaian Masalah Kreatif</li>
+            <li>Penulisan Kandungan</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="portfolio" class="section reveal">
+        <h2 class="section-title animate__animated animate__slideInLeft">
+          Portfolio
+        </h2>
+        <div class="portfolio-items">
+          <div class="portfolio-item animate__animated animate__fadeInUp">
+            <img src="placeholder-project1.jpg" alt="Projek 1" />
+            <div class="portfolio-item-details">
+              <h3>Projek Inovatif 1</h3>
+              <p>Penerangan terperinci mengenai projek ini.</p>
+              <a href="#">Lihat Lebih Lanjut</a>
+            </div>
+          </div>
+          <div
+            class="portfolio-item animate__animated animate__fadeInUp animate__delay-1s"
+          >
+            <img src="placeholder-project2.jpg" alt="Projek 2" />
+            <div class="portfolio-item-details">
+              <h3>Projek Kolaborasi Terbaik 2</h3>
+              <p>Fokus pada aspek kerjasama dan sumbangan anda.</p>
+              <a href="#">Lihat Lebih Lanjut</a>
+            </div>
+          </div>
+          <div
+            class="portfolio-item animate__animated animate__fadeInUp animate__delay-2s"
+          >
+            <img src="placeholder-project3.jpg" alt="Projek 3" />
+            <div class="portfolio-item-details">
+              <h3>Projek Kreatif Terunggul 3</h3>
+              <p>Tonjolkan elemen kreatif dan inovatif dalam projek ini.</p>
+              <a href="#">Lihat Lebih Lanjut</a>
+            </div>
+          </div>
+          <div
+            class="portfolio-item animate__animated animate__fadeInUp animate__delay-3s"
+          >
+            <img src="placeholder-project4.jpg" alt="Projek 4" />
+            <div class="portfolio-item-details">
+              <h3>Projek Berimpak Tinggi 4</h3>
+              <p>
+                Gambarkan impak positif projek ini terhadap klien atau pengguna.
+              </p>
+              <a href="#">Lihat Lebih Lanjut</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="hubungi-saya" class="section reveal">
+        <h2 class="section-title animate__animated animate__slideInRight">
+          Hubungi Saya
+        </h2>
+        <div class="contact-info animate__animated animate__fadeInUp">
+          <p>
+            Saya terbuka untuk peluang baharu dan kolaborasi menarik. Jangan
+            ragu untuk menghubungi saya jika anda ingin berbincang mengenai
+            projek atau peluang kerjaya.
+          </p>
+          <div class="contact-details">
+            <p>
+              <i class="fas fa-envelope"></i> <strong>Email:</strong>
+              <a href="mailto:emailanda@contoh.com">emailanda@contoh.com</a>
+            </p>
+            <p>
+              <i class="fas fa-phone"></i> <strong>Telefon:</strong> +60 Nombor
+              Telefon Anda
+            </p>
+            <p>
+              <i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong>
+              <a href="pautan-linkedin-anda" target="_blank"
+                >Profil LinkedIn Saya</a
+              >
+            </p>
+            <p>
+              <i class="fab fa-github"></i> <strong>GitHub:</strong>
+              <a href="pautan-github-anda" target="_blank"
+                >Repositori GitHub Saya</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>© 2023 Portfolio Saya. Hak Cipta Terpelihara.</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function reveal() {
+          var reveals = document.querySelectorAll(".reveal");
+          for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var revealTop = reveals[i].getBoundingClientRect().top;
+            var revealPoint = 150;
+
+            if (revealTop < windowHeight - revealPoint) {
+              reveals[i].classList.add("reveal");
+            } else {
+              reveals[i].classList.remove("reveal");
+            }
+          }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // Initial reveal on load
+        reveal();
+      });
+    </script>
+  </body>
+</html>
